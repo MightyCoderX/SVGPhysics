@@ -14,7 +14,7 @@ export default class Particle
 
         this.r = r;
 
-        this.audioCtx = new AudioContext();
+        // this.audioCtx = new AudioContext();
     }
 
     updatePhysics()
