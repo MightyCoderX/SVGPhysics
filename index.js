@@ -76,7 +76,10 @@ function animate()
             const mag = ball.pos.mag(mousePos.x, mousePos.y);
             if(mag !== 0)
             {
-                ball.applyForce(((mousePos.x - ball.pos.x)/mag) * attractorForce, ((mousePos.y - ball.pos.y)/mag) * attractorForce);
+                // Use sine and cosine to extract x and y
+                const x = ((mousePos.x - ball.pos.x)/mag) * attractorForce;
+                const y = ((mousePos.y - ball.pos.y)/mag) * attractorForce;
+                ball.applyForce(x, y);
             }
         }
         
