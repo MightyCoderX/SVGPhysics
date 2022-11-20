@@ -3,16 +3,22 @@ import Particle from './Particle.js';
 
 const canvas = document.getElementById('canvas');
 
+function randRange(min, max)
+{
+    return Math.random() * (max - min) + min;
+}
 
 const balls = [];
 const ellipses = [];
 
-for(let i = 0; i < 1000; i++)
+for(let i = 0; i < 500; i++)
 {
-    const x = 20 + Math.random() * canvas.getBoundingClientRect().width;
-    const y = 20 + Math.random() * canvas.getBoundingClientRect().height;
-    const vX = 1 + Math.random() * 10;
-    const vY = 1 + Math.random() * 10;
+    const x = randRange(100, canvas.getBoundingClientRect().width - 100);
+    const y = randRange(100, canvas.getBoundingClientRect().height - 100);
+
+    const direction = () => Math.random() > 0.5 ? 1 : -1;
+    const vX = randRange(0, 10) * direction();
+    const vY = randRange(0, 10) * direction();
     
     const ball = new Particle(x, y, 20, vX, vY);
     
@@ -59,8 +65,9 @@ window.addEventListener('mouseup', () => mouseDown = false);
 window.addEventListener('keydown', e => keysDown.add(e.key));
 window.addEventListener('keyup', e => keysDown.delete(e.key));
 
-const restitution = 0.9;
+const restitution = () => randRange(0.5, 1);
 const maxSpeed = 10;
+// const controlsForce = maxSpeed/15;
 const controlsForce = maxSpeed/15;
 const attractorForce = controlsForce;
 
@@ -112,7 +119,7 @@ function animate()
         }
         
         
-        ball.edges(canvasRect, Math.random());
+        ball.edges(canvasRect, restitution());
         
         // ball.collide(balls);
 
