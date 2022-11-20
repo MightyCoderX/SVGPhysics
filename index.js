@@ -1,12 +1,7 @@
-import { Vec2 } from './MathUtils.js';
+import { Vec2, randRange } from './MathUtils.js';
 import Particle from './Particle.js';
 
 const canvas = document.getElementById('canvas');
-
-function randRange(min, max)
-{
-    return Math.random() * (max - min) + min;
-}
 
 const balls = [];
 const ellipses = [];

@@ -67,3 +67,8 @@ export class Vec2
         return new Vec2(this.x, this.y);
     }
 }
+
+export function randRange(min, max)
+{
+    return Math.random() * (max - min) + min;
+}
