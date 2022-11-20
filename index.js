@@ -61,8 +61,8 @@ window.addEventListener('keyup', e => keysDown.delete(e.key));
 
 const restitution = 0.9;
 const maxSpeed = 10;
-const controlsForce = 0.02;
-const attractorForce = maxSpeed/15;
+const controlsForce = maxSpeed/15;
+const attractorForce = controlsForce;
 
 function animate()
 {
