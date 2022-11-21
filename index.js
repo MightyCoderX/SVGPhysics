@@ -93,10 +93,9 @@ function animate()
     {
         if(mouseDown)
         {
-            const mag = ball.pos.mag(mousePos.x, mousePos.y);
+            const mag = ball.pos.dist(mousePos);
             if(mag !== 0)
             {
-                // Use sine and cosine to extract x and y
                 const x = ((mousePos.x - ball.pos.x)/mag) * physics.attractorForce;
                 const y = ((mousePos.y - ball.pos.y)/mag) * physics.attractorForce;
                 ball.applyForce(x, y);
