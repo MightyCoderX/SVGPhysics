@@ -1,4 +1,4 @@
-import { Vec2, randRange } from './MathUtils.js';
+import { Vec2, randRange, mapRange } from './MathUtils.js';
 import Particle from './Particle.js';
 
 const canvas = document.getElementById('canvas');
@@ -14,8 +14,16 @@ for(let i = 0; i < 500; i++)
     const direction = () => Math.random() > 0.5 ? 1 : -1;
     const vX = randRange(0, 10) * direction();
     const vY = randRange(0, 10) * direction();
+
+    const mass = randRange(1, 5);
+    const size = mapRange(mass, 1, 5, 5, 15);
+
+    if(i === 0)
+    {
+        console.log({x, y, vX, vY, mass, size});
+    }
     
-    const ball = new Particle(x, y, 20, vX, vY);
+    const ball = new Particle(x, y, size, mass, vX, vY);
     
     const r = Math.random()*255;
     const g = Math.random()*255;
@@ -66,11 +74,11 @@ const physics =
     limitSpeed: true,
     get restitution()
     {
-        return randRange(0.5, 1)
+        return randRange(0.5, 1);
     },
     get controlsForce()
     {
-        return this.maxSpeed/15;
+        return this.maxSpeed/30;
     },
     get attractorForce()
     {
