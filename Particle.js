@@ -4,6 +4,7 @@ let idCounter = 0;
 
 export default class Particle
 {
+    //TODO Add mass
     constructor(x, y, r, velX, velY)
     {
         this.id = idCounter++;

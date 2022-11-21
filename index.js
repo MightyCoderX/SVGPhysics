@@ -60,11 +60,23 @@ window.addEventListener('mouseup', () => mouseDown = false);
 window.addEventListener('keydown', e => keysDown.add(e.key));
 window.addEventListener('keyup', e => keysDown.delete(e.key));
 
-const restitution = () => randRange(0.5, 1);
-const maxSpeed = 10;
-// const controlsForce = maxSpeed/15;
-const controlsForce = maxSpeed/15;
-const attractorForce = controlsForce;
+const physics =
+{
+    maxSpeed: 10,
+    limitSpeed: true,
+    get restitution()
+    {
+        return randRange(0.5, 1)
+    },
+    get controlsForce()
+    {
+        return this.maxSpeed/15;
+    },
+    get attractorForce()
+    {
+        return this.controlsForce;
+    }
+}
 
 function animate()
 {
@@ -77,47 +89,46 @@ function animate()
             if(mag !== 0)
             {
                 // Use sine and cosine to extract x and y
-                const x = ((mousePos.x - ball.pos.x)/mag) * attractorForce;
-                const y = ((mousePos.y - ball.pos.y)/mag) * attractorForce;
+                const x = ((mousePos.x - ball.pos.x)/mag) * physics.attractorForce;
+                const y = ((mousePos.y - ball.pos.y)/mag) * physics.attractorForce;
                 ball.applyForce(x, y);
             }
         }
         
         if(isKeyDown('ArrowUp'))
         {
-            ball.applyForce(0, -controlsForce);
+            ball.applyForce(0, -physics.controlsForce);
         }
         
         if(isKeyDown('ArrowDown'))
         {
-            ball.applyForce(0, controlsForce);
+            ball.applyForce(0, physics.controlsForce);
         }
         
         if(isKeyDown('ArrowLeft'))
         {
-            ball.applyForce(-controlsForce, 0);
+            ball.applyForce(-physics.controlsForce, 0);
         }
         
         if(isKeyDown('ArrowRight'))
         {
-            ball.applyForce(controlsForce, 0);
+            ball.applyForce(physics.controlsForce, 0);
         }
         
-        
-        if(Math.abs(ball.vel.x) > maxSpeed)
+        if(physics.limitSpeed)
         {
-            ball.vel.x = Math.sign(ball.vel.x) * maxSpeed;
-            // console.log('too fast');
+            if(Math.abs(ball.vel.x) > physics.maxSpeed)
+            {
+                ball.vel.x = Math.sign(ball.vel.x) * physics.maxSpeed;
+            }
+            
+            if(Math.abs(ball.vel.y) > physics.maxSpeed)
+            {
+                ball.vel.y = Math.sign(ball.vel.y) * physics.maxSpeed;
+            }
         }
         
-        if(Math.abs(ball.vel.y) > maxSpeed)
-        {
-            ball.vel.y = Math.sign(ball.vel.y) * maxSpeed;
-            // console.log('too fast');
-        }
-        
-        
-        ball.edges(canvasRect, restitution());
+        ball.edges(canvasRect, physics.restitution);
         
         // ball.collide(balls);
 
