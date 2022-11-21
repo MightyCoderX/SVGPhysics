@@ -1,12 +1,15 @@
 import { Vec2, randRange, mapRange } from './MathUtils.js';
 import Particle from './Particle.js';
 
+const outFps = document.querySelector('.fps');
 const canvas = document.getElementById('canvas');
+
+const fps = 60;
 
 const balls = [];
 const ellipses = [];
 
-for(let i = 0; i < 500; i++)
+for(let i = 0; i < 1000; i++)
 {
     const x = randRange(100, canvas.getBoundingClientRect().width - 100);
     const y = randRange(100, canvas.getBoundingClientRect().height - 100);
@@ -142,7 +145,32 @@ function animate()
         ball.updatePhysics();
         ball.draw(ellipses[balls.indexOf(ball)]);
     }
-    requestAnimationFrame(animate);
 }
 
-animate();
+let startTime = window.performance.now();
+let frameCount = 0;
+let then = startTime;
+let elapsed;
+const fpsInterval = 1000/fps;
+
+function loop(now)
+{
+    requestAnimationFrame(loop);
+    
+    elapsed = now - then;
+
+    if (elapsed > fpsInterval)
+    {
+        then = now - (elapsed % fpsInterval);
+
+        animate();
+
+        const sinceStart = now - startTime;
+        const currentFps = Math.round(1000 / (sinceStart / ++frameCount) * 100) / 100;
+        console.log(currentFps);
+        outFps.textContent = `${currentFps.toFixed(2)} FPS`;
+    }
+
+}
+
+loop();

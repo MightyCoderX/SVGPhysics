@@ -10,9 +10,10 @@
         <script src="index.js" type="module" defer></script>
     </head>
     <body>
-        <svg id="canvas" class="svg-canvas">
-            <text x="20" y="20" fill="#ddd">Left button down to attract balls to the cursor</text>
-            <text x="20" y="40" fill="#ddd">or move them with the arrows</text>
-        </svg>
+        <div class="instructions">
+            <p>Left button down to attract balls to the cursor or use arrows to move them</p>
+        </div>
+        <output class="fps">0.00 FPS</output>
+        <svg id="canvas" class="svg-canvas"></svg>
     </body>
 </html>
