@@ -9,7 +9,7 @@ const fps = 60;
 const balls = [];
 const ellipses = [];
 
-for(let i = 0; i < 1000; i++)
+for(let i = 0; i < 500; i++)
 {
     const x = randRange(100, canvas.getBoundingClientRect().width - 100);
     const y = randRange(100, canvas.getBoundingClientRect().height - 100);
@@ -62,11 +62,29 @@ window.addEventListener('mousedown', e =>
     mousePos.set(e.x, e.y);
     mouseDown = true;
 });
+window.addEventListener('touchstart', e =>
+{
+    const lastTouch = e.touches[e.touches.length - 1];
+    const x = lastTouch.clientX;
+    const y = lastTouch.clientY;
+    console.log(lastTouch);
+    mousePos.set(x, y);
+    mouseDown = true;
+});
 window.addEventListener('mousemove', e =>
 {
     mousePos.set(e.x, e.y);
 });
+window.addEventListener('touchmove', e =>
+{
+    const lastTouch = e.touches[e.touches.length - 1];
+    const x = lastTouch.clientX;
+    const y = lastTouch.clientY;
+    mousePos.set(x, y);
+});
 window.addEventListener('mouseup', () => mouseDown = false);
+window.addEventListener('touchend', () => mouseDown = false);
+window.addEventListener('touchcancel', () => mouseDown = false);
 
 window.addEventListener('keydown', e => keysDown.add(e.key));
 window.addEventListener('keyup', e => keysDown.delete(e.key));
@@ -166,8 +184,7 @@ function loop(now)
         animate();
 
         const sinceStart = now - startTime;
-        const currentFps = Math.round(1000 / (sinceStart / ++frameCount) * 100) / 100;
-        console.log(currentFps);
+        const currentFps = 1000/(sinceStart / ++frameCount);
         outFps.textContent = `${currentFps.toFixed(2)} FPS`;
     }
 
