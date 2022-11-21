@@ -49,7 +49,6 @@ for(let i = 0; i < 500; i++)
 
 let mouseDown = false;
 const mousePos = new Vec2();
-
 const keysDown = new Set();
 
 function isKeyDown(key)
