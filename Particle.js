@@ -4,22 +4,30 @@ let idCounter = 0;
 
 export default class Particle
 {
-    //TODO Add mass
-    constructor(x, y, r, velX, velY)
+    /**
+     * @param {number} x 
+     * @param {number} y 
+     * @param {number} r 
+     * @param {number} mass 
+     * @param {number} velX 
+     * @param {number} velY 
+     */
+    constructor(x, y, r, mass, velX, velY)
     {
         this.id = idCounter++;
 
         this.pos = new Vec2(x, y);
+        this.r = r;
+        this.mass = mass;
         this.vel = new Vec2(velX, velY);
         this.acc = new Vec2();
-
-        this.r = r;
 
         // this.audioCtx = new AudioContext();
     }
 
     updatePhysics()
     {
+        this.acc.mul(new Vec2(this.mass, this.mass));
         this.vel.add(this.acc);
         this.pos.add(this.vel);
         this.acc.set();
