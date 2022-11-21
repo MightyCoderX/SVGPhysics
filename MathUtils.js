@@ -99,3 +99,8 @@ export function randRange(min, max)
 {
     return Math.random() * (max - min) + min;
 }
+
+export function mapRange(number, inMin, inMax, outMin, outMax)
+{
+    return (number - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+}
