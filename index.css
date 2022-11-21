@@ -10,30 +10,36 @@ html, body
     background-color: #000;
     color: #fff;
     height: 100%;
-    font-family: sans-serif;
+    font-family: monospace;
 }
 
 .instructions
 {
     position: absolute;
+    display: flex;
+    align-items: flex-start;
     top: 0;
     left: 0;
-    padding: 1rem;
+    padding: 0.5rem;
     background-color: #000a;
     pointer-events: none;
     user-select: none;
+    font-size: 1.1rem;
+    width: 50%;
+    max-width: 400px;
 }
 
 .fps
 {
     position: absolute;
+    display: flex;
+    align-items: flex-start;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
     top: 0;
     right: 0;
     padding: 1rem;
-    font-size: 2rem;
     pointer-events: none;
     user-select: none;
-    font-family: monospace;
 }
 
 .svg-canvas
