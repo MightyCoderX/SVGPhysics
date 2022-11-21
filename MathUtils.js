@@ -46,6 +46,15 @@ export class Vec2
         this.y *= vec.y;
         return this;
     }
+
+    /**
+     * @param {Vec2} vec 
+     */
+    div(vec)
+    {
+        this.x /= vec.x;
+        this.y /= vec.y;
+    }
     
     /**
      * @param {Vec2} vec 
@@ -56,10 +65,28 @@ export class Vec2
         return Math.sqrt(distanceSqr);
     }
 
-    normalize()
+    normalize(originX, originY)
     {
+        const mag = this.mag(originX, originY);
         
+        if(mag == 0) return 0;
+
+        this.mul(new Vec2(1 / mag, 1 / mag));
+
         return this;
+    }
+
+    heading()
+    {
+        return Math.atan2(this.y, this.x);
+    }
+
+    roundf()
+    {
+        const rounded = this.clone();
+        rounded.x = Math.fround(rounded.x);
+        rounded.y = Math.fround(rounded.y);
+        return rounded;
     }
 
     clone()
